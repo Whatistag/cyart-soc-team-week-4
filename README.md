@@ -295,11 +295,7 @@ The exercises demonstrated the importance of proactive threat hunting, automated
 
 ---
 
-Great—this is a **real SOC threat hunting workflow**, and I’ll walk you through it exactly like a professional setup: from **lab architecture → installation → hunting → reporting**.
-
----
-
-# 🖥️ 1. LAB ARCHITECTURE (WHO DOES WHAT)
+# 🖥️ 1. Threat Hunting Practice
 
 
 | Machine                                  | Role                    | Tools                                           |
@@ -513,6 +509,222 @@ Match:
 **Threat Hunting Report**
 
 A threat hunting exercise was conducted to detect unauthorized privilege escalation using valid accounts (MITRE ATT&CK T1078). Analysis in Elastic Security identified multiple Event ID 4672 logs indicating privileged logons by user “testuser,” which deviated from normal behavior. Further validation using Velociraptor revealed suspicious processes executed under the same account. Threat intelligence from AlienVault OTX confirmed associated IP activity as potentially malicious. The findings suggest possible misuse of valid credentials for unauthorized access. Immediate actions such as account review, password reset, and privilege auditing are recommended to mitigate further risks and strengthen access controls.
+
+---
+
+**2. SOAR Playbook Development**
+
+# 🖥️ 1. LAB ARCHITECTURE (SOAR FLOW)
+
+
+## 🔹 Machines Setup
+
+| Machine                         | Role             | Tools               |
+| ------------------------------- | ---------------- | ------------------- |
+| 🔵 **Wazuh Server**             | Detection (SIEM) | Wazuh               |
+| 🟡 **Windows / Ubuntu**         | SOAR             | Splunk Phantom      |
+| 🟣 **Windows / Ubuntu**         | Case Mgmt        | TheHive             |
+| 🟢 **Linux (same as Wazuh ok)** | Response         | CrowdSec            |
+| 🔴 **Kali (optional)**          | Attacker         | Phishing simulation |
+
+---
+
+# ⚙️ 2. INSTALLATION (ONLY REQUIRED PARTS)
+
+---
+
+## 🟡 A. SPLUNK PHANTOM (SOAR)
+
+👉 Machine: **Ubuntu (recommended)**
+
+### Install:
+
+```bash
+wget https://download.splunk.com/products/phantom/releases/latest/phantom.tgz
+tar -xvzf phantom.tgz
+cd phantom
+sudo ./install.sh
+```
+
+Access:
+
+```
+https://<phantom-ip>
+```
+
+---
+
+## 🟣 B. THEHIVE
+
+👉 Already installed (from previous lab)
+
+If not:
+
+```bash
+docker run -d -p 9000:9000 thehiveproject/thehive
+```
+
+---
+
+## 🟢 C. CROWDSEC
+
+👉 Machine: **Wazuh / Ubuntu**
+
+```bash
+sudo apt install crowdsec
+```
+
+---
+
+## 🔵 D. WAZUH (ALREADY SETUP)
+
+We will **simulate phishing alert**
+
+---
+
+# 🔄 3. PLAYBOOK CREATION (SPLUNK PHANTOM)
+
+👉 Machine: **Splunk Phantom UI**
+
+---
+
+## 🎯 Playbook Goal
+
+👉 If phishing alert →
+
+1. Extract IP
+2. Check reputation
+3. Block IP
+4. Create TheHive case
+
+---
+
+## 🧩 Step-by-Step Playbook
+
+### Step 1: Create Playbook
+
+* Go → **Playbooks**
+* Click → **New Playbook**
+* Name: `Phishing_Auto_Response`
+
+---
+
+### Step 2: Add Blocks
+
+---
+
+## 🔹 Block 1: Extract IP
+
+* Action: **Parse Artifact**
+* Extract:
+
+  * Source IP from Wazuh alert
+
+---
+
+## 🔹 Block 2: Check IP Reputation
+
+* App: **VirusTotal / OTX**
+* Action: `ip reputation`
+
+Output:
+
+* If malicious → continue
+
+---
+
+## 🔹 Block 3: Decision Block
+
+Condition:
+
+```
+if reputation == malicious
+```
+
+---
+
+## 🔹 Block 4: Block IP (CrowdSec)
+
+Add custom action:
+
+```bash
+cscli decisions add --ip <ip> --ban
+```
+
+(Use Phantom SSH/App integration)
+
+---
+
+## 🔹 Block 5: Create TheHive Case
+
+Use TheHive API:
+
+Fields:
+
+* Title: Phishing Incident
+* Severity: High
+* IP: artifact
+
+---
+
+# 🧪 4. PLAYBOOK TEST (IMPORTANT)
+
+---
+
+## 🔵 Step 1: Simulate Phishing Alert in Wazuh
+
+👉 Machine: **Wazuh Agent (Linux/Windows)**
+
+Generate fake alert:
+
+```bash
+logger "Phishing attempt detected from 192.168.1.102"
+```
+
+OR custom rule in Wazuh:
+
+```xml
+<rule id="100200" level="10">
+  <match>phishing</match>
+  <description>Phishing Attempt Detected</description>
+</rule>
+```
+
+---
+
+## 🔄 Step 2: Forward Alert to Phantom
+
+* Use Webhook / API
+* Configure Wazuh → Phantom integration
+
+---
+
+## ▶️ Step 3: Run Playbook
+
+👉 In Phantom:
+
+* Go → Containers
+* Open alert
+* Run Playbook
+
+---
+
+# 📊 5. DOCUMENT RESULTS
+
+| Playbook Step | Status  | Notes                          |
+| ------------- | ------- | ------------------------------ |
+| Check IP      | Success | IP flagged malicious           |
+| Block IP      | Success | CrowdSec blocked 192.168.1.102 |
+| Create Case   | Success | Case created in TheHive        |
+
+---
+
+# 🧾 6. 50-WORD PLAYBOOK SUMMARY
+
+
+**Playbook Summary**
+
+A SOAR playbook was developed using Splunk Phantom to automate phishing incident response. The playbook extracts suspicious IPs from alerts, checks reputation via threat intelligence, blocks malicious IPs using CrowdSec, and creates incident cases in TheHive. This automation improves response time, reduces manual effort, and enhances SOC efficiency.
 
 ---
 
