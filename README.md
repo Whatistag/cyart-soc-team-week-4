@@ -301,19 +301,6 @@ Great—this is a **real SOC threat hunting workflow**, and I’ll walk you thro
 
 # 🖥️ 1. LAB ARCHITECTURE (WHO DOES WHAT)
 
-## 🔹 Machines Required
-
-![Image](https://images.openai.com/static-rsc-4/7KcyrcbmDEKZgc12vAV3rfBANbOnQLMrjJrkejq73yyZXsrkTpsIQDDSDh7XUeFNh7q1-IendKHdHjpV8QVs9rUgUdWgga8PEe7j9fEXN9h7NYtP3U7hoDgW_nDJcnlfKj_55BEzojnKZig0TQfNiBGQYla9aFgp2oHx-L16PPJkVDmiUrIabv2CNuQed5h4?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/yb9meAnElmi-QPHLN9j2pPHzveXttg3FQDaH8Zpl7bxZaxKDwQ7hb09HDBr9-7E_7J1CmZz_l24_BqSdHvRUYm2pTHLvgc-1wB5qCPcRg-Fzds4uYnpQHZeSnKMbvRFFB2uivCoMxrcmrDF3ElNeKvS9q6XuaLn6GccoNOZztdet8qHL0gvCN3Z8uZbDYSvl?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/xo641jyJ-3cDDJI866ZeTvljGeT-oB8fTMtyoNrarB4Szvt2KTVBOWHCjoN1mMvzl46CCPvfZCOzjEuI6PRFT9NsjtCkh4eBKK8O3-2MMvQEPQR24zivsg2pWJxmUF6n5xECburp3E-X32ZKG5RvlJ-X3a47ZfDDRlXRx4InMgEQOTEssrsEniUFg11m0Tel?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/eE5-M242owHgaRzG2OZ4aA-HEUSbAOSXilchr6yFAQpLQlfF5wqh9ozwAODMa9Zn6Yq2Aft4LdqdUHmp8ZM-QXzsKj3CyOxbaQxsVlLLUpPSuGaOn5OG0XMavOtFWBzEYVujvrROs0bMURlHdHR7Fc8yfU0vfMWcmHmxaiGwL61Mg1Y689Dxu16Hwl-tsyA_?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/SbS3nTKamzEpFYDrvuHgF14Tos7S-tZjAXdYKxPzDire9tvdBRgOQXtZdQ1-ebN4oY8NT113wZWy_KuCF2mpN9YeizwEAwqjMT-IuzB361QVx-RNAB4Rd6cYlVAgiqjpBPWlrmOwSTQJY8z4DPuYR2286Ln4PTsRm5ENHz1Kwsd7z3ACfY2mtN5AtIEG3ksj?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/nKmFq0YFG9xMCluA2NEc65IPle3zATD6elc-oUdCDLQ6zCctaUc38B5Ni28ib5rBgZrOrmqICHbPqdkp2PAzpdM0b7ea1NrpymJDm_0STpJf5M5cNfhCgJQcksu8sGsXj7IdXTWdYyR-17Me8FsA_PiLwnSOlo-RmN-DYFRtMWesTzsItrgztxawco7B6jfc?purpose=fullsize)
 
 | Machine                                  | Role                    | Tools                                           |
 | ---------------------------------------- | ----------------------- | ----------------------------------------------- |
