@@ -294,8 +294,9 @@ This internship provided practical exposure to advanced SOC operations including
 The exercises demonstrated the importance of proactive threat hunting, automated response workflows, and continuous improvement through metrics and reporting. Implementing automation and improving detection rules will significantly enhance SOC efficiency and reduce incident response time.
 
 ---
+## Practical Application
 
-# 🖥️ 1. Threat Hunting Practice
+#  1. Threat Hunting Practice
 
 
 | Machine                                  | Role                    | Tools                                           |
@@ -311,9 +312,9 @@ The exercises demonstrated the importance of proactive threat hunting, automated
 
 ---
 
-## 🔵 A. ELASTIC SECURITY SETUP (SIEM)
+##  A. ELASTIC SECURITY SETUP (SIEM)
 
-👉 Machine: **Ubuntu/Kali (Elastic Server)**
+ Machine: **Ubuntu/Kali (Elastic Server)**
 
 ### Step 1: Install Elastic Stack
 
@@ -342,9 +343,9 @@ http://<elastic-ip>:5601
 
 ---
 
-## 🟡 B. WINDOWS 10 (LOG SOURCE)
+##  B. WINDOWS 10 (LOG SOURCE)
 
-👉 Machine: **Windows 10**
+ Machine: **Windows 10**
 
 ### Step 1: Install Elastic Agent (Recommended)
 
@@ -354,7 +355,7 @@ Download from Elastic → install
 elastic-agent install --url=http://<elastic-ip>:8220 --enrollment-token=<token>
 ```
 
-👉 Enable:
+ Enable:
 
 * Windows Security Logs
 * Event Logs
@@ -369,13 +370,13 @@ Check for:
 
 ---
 
-## 🟣 C. VELOCIRAPTOR SETUP (EDR)
+##  C. VELOCIRAPTOR SETUP (EDR)
 
 ---
 
 ### Step 1: Install Server
 
-👉 Machine: **Ubuntu/Kali**
+ Machine: **Ubuntu/Kali**
 
 ```bash
 wget https://github.com/Velocidex/velociraptor/releases/download/v0.7.0/velociraptor-linux-amd64
@@ -392,7 +393,7 @@ Run:
 
 ### Step 2: Install Client
 
-👉 Machine: **Windows**
+ Machine: **Windows**
 
 * Download client config from server UI
 * Run client:
@@ -403,30 +404,30 @@ velociraptor.exe --config client.config.yaml
 
 ---
 
-## 🌐 D. ALIENVAULT OTX (Threat Intel)
+##  D. ALIENVAULT OTX (Threat Intel)
 
-👉 No install needed
+ No install needed
 
 * Go to: (https://otx.alienvault.com)
 * Create account
 
 ---
 
-# 🔍 3. THREAT HUNTING PRACTICAL
+#  3. THREAT HUNTING PRACTICAL
 
 ---
 
-## 🧠 Step 1: HYPOTHESIS DEVELOPMENT
+##  Step 1: HYPOTHESIS DEVELOPMENT
 
-👉 Hypothesis:
+ Hypothesis:
 
 > “Unauthorized privilege escalation using valid accounts (MITRE T1078)”
 
 ---
 
-## 🔎 Step 2: QUERY IN ELASTIC SECURITY
+##  Step 2: QUERY IN ELASTIC SECURITY
 
-👉 Machine: **Elastic Server (Kibana UI)**
+ Machine: **Elastic Server (Kibana UI)**
 
 Go to:
 **Security → Discover**
@@ -437,7 +438,7 @@ Go to:
 event.code: "4672"
 ```
 
-👉 This shows:
+ This shows:
 
 * Special privileges assigned to new logon
 
@@ -451,9 +452,9 @@ event.code: "4672"
 
 ---
 
-## 🧪 Step 3: VALIDATE USING VELOCIRAPTOR
+##  Step 3: VALIDATE USING VELOCIRAPTOR
 
-👉 Machine: **Velociraptor UI**
+ Machine: **Velociraptor UI**
 
 Go to:
 
@@ -467,16 +468,16 @@ SELECT Name, CommandLine, Username FROM processes
 
 ---
 
-👉 Look for:
+ Look for:
 
 * Suspicious processes
 * Privileged users running unusual binaries
 
 ---
 
-## 🌐 Step 4: THREAT INTEL WITH OTX
+##  Step 4: THREAT INTEL WITH OTX
 
-👉 Go to OTX
+ Go to OTX
 
 Search:
 
@@ -492,7 +493,7 @@ Search:
 
 ---
 
-## 🔄 Step 5: CROSS-CORRELATION
+##  Step 5: CROSS-CORRELATION
 
 Match:
 
@@ -504,7 +505,7 @@ Match:
 
 ---
 
-# 🧾 4. HUNTING REPORT (100 WORDS)
+#  4. HUNTING REPORT (100 WORDS)
 
 **Threat Hunting Report**
 
@@ -514,7 +515,7 @@ A threat hunting exercise was conducted to detect unauthorized privilege escalat
 
 **2. SOAR Playbook Development**
 
-# 🖥️ 1. LAB ARCHITECTURE (SOAR FLOW)
+#  1. LAB ARCHITECTURE (SOAR FLOW)
 
 
 ## 🔹 Machines Setup
@@ -529,13 +530,13 @@ A threat hunting exercise was conducted to detect unauthorized privilege escalat
 
 ---
 
-# ⚙️ 2. INSTALLATION (ONLY REQUIRED PARTS)
+#  2. INSTALLATION (ONLY REQUIRED PARTS)
 
 ---
 
-## 🟡 A. SPLUNK PHANTOM (SOAR)
+##  A. SPLUNK PHANTOM (SOAR)
 
-👉 Machine: **Ubuntu (recommended)**
+ Machine: **Ubuntu (recommended)**
 
 ### Install:
 
@@ -554,9 +555,9 @@ https://<phantom-ip>
 
 ---
 
-## 🟣 B. THEHIVE
+##  B. THEHIVE
 
-👉 Already installed (from previous lab)
+ Already installed (from previous lab)
 
 If not:
 
@@ -566,9 +567,9 @@ docker run -d -p 9000:9000 thehiveproject/thehive
 
 ---
 
-## 🟢 C. CROWDSEC
+##  C. CROWDSEC
 
-👉 Machine: **Wazuh / Ubuntu**
+ Machine: **Wazuh / Ubuntu**
 
 ```bash
 sudo apt install crowdsec
@@ -576,21 +577,21 @@ sudo apt install crowdsec
 
 ---
 
-## 🔵 D. WAZUH (ALREADY SETUP)
+##  D. WAZUH (ALREADY SETUP)
 
 We will **simulate phishing alert**
 
 ---
 
-# 🔄 3. PLAYBOOK CREATION (SPLUNK PHANTOM)
+#  3. PLAYBOOK CREATION (SPLUNK PHANTOM)
 
-👉 Machine: **Splunk Phantom UI**
+ Machine: **Splunk Phantom UI**
 
 ---
 
-## 🎯 Playbook Goal
+##  Playbook Goal
 
-👉 If phishing alert →
+ If phishing alert →
 
 1. Extract IP
 2. Check reputation
@@ -599,7 +600,7 @@ We will **simulate phishing alert**
 
 ---
 
-## 🧩 Step-by-Step Playbook
+##  Step-by-Step Playbook
 
 ### Step 1: Create Playbook
 
@@ -613,7 +614,7 @@ We will **simulate phishing alert**
 
 ---
 
-## 🔹 Block 1: Extract IP
+##  Block 1: Extract IP
 
 * Action: **Parse Artifact**
 * Extract:
@@ -622,7 +623,7 @@ We will **simulate phishing alert**
 
 ---
 
-## 🔹 Block 2: Check IP Reputation
+##  Block 2: Check IP Reputation
 
 * App: **VirusTotal / OTX**
 * Action: `ip reputation`
@@ -633,7 +634,7 @@ Output:
 
 ---
 
-## 🔹 Block 3: Decision Block
+##  Block 3: Decision Block
 
 Condition:
 
@@ -643,7 +644,7 @@ if reputation == malicious
 
 ---
 
-## 🔹 Block 4: Block IP (CrowdSec)
+##  Block 4: Block IP (CrowdSec)
 
 Add custom action:
 
@@ -655,7 +656,7 @@ cscli decisions add --ip <ip> --ban
 
 ---
 
-## 🔹 Block 5: Create TheHive Case
+##  Block 5: Create TheHive Case
 
 Use TheHive API:
 
@@ -671,9 +672,9 @@ Fields:
 
 ---
 
-## 🔵 Step 1: Simulate Phishing Alert in Wazuh
+##  Step 1: Simulate Phishing Alert in Wazuh
 
-👉 Machine: **Wazuh Agent (Linux/Windows)**
+ Machine: **Wazuh Agent (Linux/Windows)**
 
 Generate fake alert:
 
@@ -692,16 +693,16 @@ OR custom rule in Wazuh:
 
 ---
 
-## 🔄 Step 2: Forward Alert to Phantom
+##  Step 2: Forward Alert to Phantom
 
 * Use Webhook / API
 * Configure Wazuh → Phantom integration
 
 ---
 
-## ▶️ Step 3: Run Playbook
+##  Step 3: Run Playbook
 
-👉 In Phantom:
+ In Phantom:
 
 * Go → Containers
 * Open alert
@@ -709,7 +710,7 @@ OR custom rule in Wazuh:
 
 ---
 
-# 📊 5. DOCUMENT RESULTS
+#  5. DOCUMENT RESULTS
 
 | Playbook Step | Status  | Notes                          |
 | ------------- | ------- | ------------------------------ |
@@ -719,7 +720,7 @@ OR custom rule in Wazuh:
 
 ---
 
-# 🧾 6. 50-WORD PLAYBOOK SUMMARY
+#  6. 50-WORD PLAYBOOK SUMMARY
 
 
 **Playbook Summary**
