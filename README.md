@@ -729,4 +729,45 @@ A SOAR playbook was developed using Splunk Phantom to automate phishing incident
 
 ---
 
+# Evidence Preservation Practice Report
 
+## 1. Objective
+
+The objective of this exercise is to practice **digital evidence preservation during a security incident investigation**. This includes collecting volatile data, preserving system memory, generating cryptographic hashes for integrity verification, and documenting the chain of custody to maintain evidence authenticity.
+
+<img width="1920" height="922" alt="velociraptor" src="https://github.com/user-attachments/assets/100e08bd-8509-4e52-8476-f6f509d9a148" />
+
+---
+
+# 2. Volatile Data Collection
+
+Volatile data was collected using **Velociraptor** from a Windows virtual machine.
+
+### Steps Performed
+
+1. Open the **Velociraptor server dashboard**.
+2. Select the target **Windows client system**.
+3. Navigate to:
+
+```
+Hunt Manager → New Hunt
+```
+<img width="1024" height="768" alt="velociraptor new notebook create" src="https://github.com/user-attachments/assets/2507033a-cd38-438b-aef8-70c2d04d2b46" />
+
+4. Run the query:
+
+```
+SELECT * FROM netstat()
+```
+<img width="1024" height="768" alt="velociraptor Add Query Cell Enter Netstat Query" src="https://github.com/user-attachments/assets/6da326f6-286b-4ad9-af7c-723bf11a5693" />
+
+5. This query collects **active network connections** from the system.
+
+<img width="1024" height="768" alt="velociptor after save and run the VQL cell" src="https://github.com/user-attachments/assets/863ce1b0-6209-464a-b508-e9d5428ac62f" />
+
+### Example Output
+
+| Proto | Local Address      | Remote Address   | State       | PID  |
+| ----- | ------------------ | ---------------- | ----------- | ---- |
+| TCP   | 192.168.1.10:49821 | 104.26.10.78:443 | ESTABLISHED | 3245 |
+| TCP   | 192.168.1.10:49711 | 192.168.1.50:22  | TIME_WAIT   | 4123 |
